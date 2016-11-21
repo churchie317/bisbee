@@ -3,16 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-immutable": "^1.6.0",
+    "jsdom": "^9.8.3",
+    "mocha": "^3.1.2",
     "react-scripts": "0.7.0"
   },
   "dependencies": {
+    "immutable": "^3.8.1",
     "react": "^15.4.0",
     "react-dom": "^15.4.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom",
+    "test": "mocha --compilers js:babel-core/register --require ./test/test_helper.js \"test/**/*@(.js|.jsx)\"",
+    "test:watch": "npm run test -- --watch",
     "eject": "react-scripts eject"
   }
 }
