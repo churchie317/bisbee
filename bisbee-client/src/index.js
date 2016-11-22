@@ -1,11 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Voting from './components/Voting';
-import './index.css';
-
-const pair = [ 'Trainspotting', '28 Days Later' ];
+import { Router, hashHistory } from 'react-router';
+import Routes from './index.jsx';
 
 ReactDOM.render(
-  <Voting pair={ pair } winner="Trainspotting" />,
+  <Router history={ hashHistory }>
+    { Routes }
+  </Router>,
   document.getElementById('root')
 );
