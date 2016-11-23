@@ -8,6 +8,7 @@ export default function startServer(store) {
 
   // WHEN client connects to server, EMIT application state to client
   io.on('connection', socket => {
+    console.log('client connected!');
     socket.emit('state', store.getState().toJS());
     socket.on('action', store.dispatch.bind(store));
   });
