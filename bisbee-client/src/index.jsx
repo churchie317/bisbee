@@ -5,7 +5,9 @@ import Voting from './components/Voting';
 import Results from './components/Results';
 import './index.css';
 
-export default (<Route component={ App }>
+export default (
+<Route component={ App }>
   <Route path="/" component={ Voting } />
   <Route path="results" component={ Results } />
-</Route>);
+</Route>
+);
