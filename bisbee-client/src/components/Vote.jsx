@@ -13,7 +13,8 @@ function hasVotedFor(hasVoted, entry) {
   return hasVoted === entry;
 }
 
-export default (props) => {
+const Vote = (props) => {
+  console.log('typeof pair:', typeof props.pair);
   return (<div className="voting">
     { getPair(props.pair).map(entry => {
       return (<button key={ entry }
@@ -28,3 +29,10 @@ export default (props) => {
     )}
   </div>);
 }
+
+Vote.propTypes = {
+  pair: React.PropTypes.arrayOf(React.PropTypes.string),
+  hasVoted: React.PropTypes.string
+}
+
+export default Vote;
