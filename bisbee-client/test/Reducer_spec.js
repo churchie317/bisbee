@@ -1,7 +1,7 @@
 import { List, Map, fromJS } from 'immutable';
 import { expect } from 'chai';
 
-import reducer from '../../src/reducer';
+import reducer from '../src/reducer';
 
 describe('reducer', () => {
 
@@ -78,7 +78,7 @@ describe('reducer', () => {
     }));
   });
 
-  it('should handle VOTE by setting hasVoted to true', () => {
+  it('should handle VOTE by setting hasVoted', () => {
     const state = fromJS({
       vote: {
         pair: [ 'Trainspotting', '28 Days Later' ],
@@ -87,14 +87,14 @@ describe('reducer', () => {
         }
       }
     });
-    const action = { type: VOTE, entry: 'Trainspotting'};
+    const action = { type: 'VOTE', entry: 'Trainspotting'};
     const nextState = reducer(state, action);
 
     expect(nextState).to.equal(fromJS({
       vote: {
         pair: [ 'Trainspotting', '28 Days Later' ],
         tally: {
-          'Trainspotting': 2
+          'Trainspotting': 1
         }
       },
       hasVoted: 'Trainspotting'
@@ -119,6 +119,33 @@ describe('reducer', () => {
         tally: {
           'Trainspotting': 1
         }
+      }
+    }));
+  })
+
+  it('should remove hasVoted on state when pair changes', () => {
+    const initialState = fromJS({
+      vote: {
+        pair: [ 'Trainspotting', '28 Days Later' ],
+        tally: {
+          'Trainspotting': 1
+        }
+      },
+      hasVoted: 'Trainspotting'
+    });
+    const action = {
+      type: 'SET_STATE',
+      state: {
+        vote: {
+          pair: [ 'Sunshine', 'Millions' ]
+        }
+      }
+    };
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      vote: {
+        pair: [ 'Sunshine', 'Millions' ]
       }
     }));
   })
