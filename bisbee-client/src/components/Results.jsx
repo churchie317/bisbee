@@ -17,7 +17,7 @@ const Results = (props) => {
 
 function mapDispatchToProps(dispatch) {
   return {
-    next: dispatch(next())
+    next: () => dispatch(next())
   }
 }
 
