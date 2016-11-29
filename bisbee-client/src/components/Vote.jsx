@@ -14,7 +14,6 @@ function hasVotedFor(hasVoted, entry) {
 }
 
 const Vote = (props) => {
-  console.log('typeof pair:', typeof props.pair);
   return (<div className="voting">
     { getPair(props.pair).map(entry => {
       return (<button key={ entry }

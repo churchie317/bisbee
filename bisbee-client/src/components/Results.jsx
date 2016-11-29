@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { next } from '../action_creators';
 
 import Winner from './Winner';
 import Tally from './Tally';
@@ -14,6 +15,12 @@ const Results = (props) => {
   </div>;
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    next: dispatch(next())
+  }
+}
+
 function mapStateToProps(state) {
   return {
     pair: state.getIn([ 'vote', 'pair' ]),
@@ -22,4 +29,4 @@ function mapStateToProps(state) {
   }
 }
 
-export default connect(mapStateToProps)(Results);
+export default connect(mapStateToProps, mapDispatchToProps)(Results);
