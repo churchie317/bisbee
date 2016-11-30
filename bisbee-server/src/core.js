@@ -2,8 +2,17 @@ import { List, Map } from 'immutable';
 
 export const INITIAL_STATE = Map();
 
+// For development use
 export function setEntries(state, entries) {
   return state.set('entries', List(entries));
+}
+
+// For production use
+export function setEntry(state, entry) {
+  if( List.isList(state.get('entries')) ){
+    return state.setIn([ 'entries' ], state.getIn([ 'entries' ]).push(entry));
+  }
+  return state.set('entries', List.of(entry));
 }
 
 function getWinners(vote) {
