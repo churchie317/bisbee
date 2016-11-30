@@ -1,7 +1,7 @@
 import { List, Map } from 'immutable';
 import { expect } from 'chai';
 
-import { setEntries, next, vote } from '../src/core';
+import { setEntries, setEntry, next, vote } from '../src/core';
 
 describe('Application logic', () => {
 
@@ -16,6 +16,41 @@ describe('Application logic', () => {
         entries: List.of('Trainspotting', '28 Days Later')
       }))
     })
+  });
+
+  describe('setEntry', () => {
+
+    it('should create List of entries when none exist', () => {
+      const initialState = Map();
+      const nextState = setEntry(initialState, 'Trainspotting');
+
+      expect(nextState).to.equal(Map({
+        entries: List([ 'Trainspotting' ])
+      }));
+    })
+
+    it('should add entry to List of entries', () => {
+      const initialState = Map({
+        entries: List.of('Trainspotting', 'Millions', 'Sunshine')
+      });
+      const nextState = setEntry(initialState, '28 Days Later');
+
+      expect(nextState).to.equal(Map({
+        entries: List([ 'Trainspotting', 'Millions', 'Sunshine', '28 Days Later' ])
+      }));
+    });
+
+    it('should preserve submission order', () => {
+      const initialState = Map();
+      const firstState = setEntry(initialState, 'Trainspotting');
+      const secondState = setEntry(firstState, '28 Days Later');
+      const thirdState = setEntry(secondState, 'Sunshine');
+      const finalState = setEntry(thirdState, 'Millions');
+
+      expect(finalState).to.equal(Map({
+        entries: List([ 'Trainspotting', '28 Days Later', 'Sunshine', 'Millions' ])
+      }));
+    });
   });
 
   describe('next', () => {
@@ -93,7 +128,7 @@ describe('Application logic', () => {
         winner: 'Trainspotting'
       }));
     })
-  })
+  });
 
   describe('vote', () => {
 
@@ -129,5 +164,5 @@ describe('Application logic', () => {
         })
       }))
     })
-  })
+  });
 })

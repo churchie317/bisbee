@@ -84,4 +84,17 @@ describe('Reducer', () => {
       winner: 'Trainspotting'
     }))
   })
+
+  it('should handle SET_ENTRY', () => {
+    const initialState = Map();
+    const action = {
+      type: 'SET_ENTRY',
+      entry: 'Trainspotting'
+    };
+    const nextState = reducer(initialState, action);
+
+    expect(nextState).to.equal(fromJS({
+      entries: [ 'Trainspotting' ]
+    }));
+  });
 })
